@@ -30,7 +30,8 @@ let totalTerms = {};
 
 function createIndex(items) {
     items.forEach((item, itemId) => {
-        let terms = item.description.toLowerCase().replace(/\W/g, ' ').split(' ');
+        let terms = item.name.toLowerCase().replace(/\W/g, ' ').split(' ')
+                        .concat(item.description.toLowerCase().replace(/\W/g, ' ').split(' '));
         terms.forEach(term => {
             if (!tfidf[term]) {
                 tfidf[term] = { docFreq: 0, docIds: {} };

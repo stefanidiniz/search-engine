@@ -1,7 +1,7 @@
 let items = [];
 
 window.onload = function() {
-    fetch('lojas_de_roupas_ultimos_itens.txt')
+    fetch('loja_de_roupas_ultimos_itens.txt')
         .then(response => response.text())
         .then(text => {
             const lines = text.split('\n');

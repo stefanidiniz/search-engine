@@ -52,6 +52,19 @@ function createIndex(items) {
     });
 }
 
+function evaluatePerformance(rankedItems, relevantItems) {
+    let relevantRetrieved = 0;
+    rankedItems.forEach((item, index) => {
+        if (relevantItems.includes(item.itemId)) relevantRetrieved++;
+    });
+
+    const precision = relevantRetrieved / rankedItems.length;
+    const recall = relevantRetrieved / relevantItems.length;
+    const f1Score = 2 * (precision * recall) / (precision + recall);
+
+    console.log(`Precisão: ${precision.toFixed(2)}, Revocação: ${recall.toFixed(2)}, F1-Score: ${f1Score.toFixed(2)}`);
+}
+
 function searchItems() {
     const query = document.getElementById('search-input').value.toLowerCase().replace(/\W/g, ' ').split(' ');
     let scores = Array(items.length).fill(0);
@@ -67,25 +80,40 @@ function searchItems() {
     const rankedItems = scores.map((score, itemId) => ({ itemId, score }))
                               .sort((a, b) => b.score - a.score);
 
+    // Exibir os produtos classificados
     displayResults(rankedItems);
-}
 
-function displayResults(rankedItems) {
-    const resultsDiv = document.getElementById('results');
-    resultsDiv.innerHTML = '';
-
-    rankedItems.forEach(({ itemId, score }) => {
-        if (score > 0) {
-            const item = items[itemId];
-            const itemDiv = document.createElement('div');
-            itemDiv.className = 'item';
-            itemDiv.innerHTML = `
-                <h2>${item.name}</h2>
-                <img src="${item.image}" alt="${item.name}">
-                <p>${item.description}</p>
-                <p><strong>Preço:</strong> ${item.price}</p>
-            `;
-            resultsDiv.appendChild(itemDiv);
-        }
-    });
-}
+     // Simulação de itens relevantes (IDs dos itens)
+     const relevantItems = [0, 2, 3];
+     evaluatePerformance(rankedItems, relevantItems);
+ }
+ 
+ function displayResults(rankedItems) {
+     const resultsContainer = document.getElementById('results');
+     resultsContainer.innerHTML = '';
+ 
+     rankedItems.forEach(rankItem => {
+         const item = items[rankItem.itemId];
+         const itemElement = document.createElement('div');
+         itemElement.className = 'item';
+ 
+         const itemImage = document.createElement('img');
+         itemImage.src = item.image;
+         itemElement.appendChild(itemImage);
+ 
+         const itemName = document.createElement('h3');
+         itemName.innerText = item.name;
+         itemElement.appendChild(itemName);
+ 
+         const itemDescription = document.createElement('p');
+         itemDescription.innerText = item.description;
+         itemElement.appendChild(itemDescription);
+ 
+         const itemPrice = document.createElement('span');
+         itemPrice.innerText = `Preço: ${item.price}`;
+         itemElement.appendChild(itemPrice);
+ 
+         resultsContainer.appendChild(itemElement);
+     });
+ }
+ 

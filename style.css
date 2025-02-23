@@ -1,0 +1,44 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f8f8f8;
+}
+
+h1 {
+    text-align: center;
+}
+
+.search-bar {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
+}
+
+.item img {
+    max-width: 100px;
+    display: block;
+}
+
+.item h2 {
+    margin: 0 0 10px;
+}
+
+.item p {
+    margin: 5px 0;
+}
+
+.item strong {
+    display: block;
+    margin-top: 10px;
+}
